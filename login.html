@@ -115,14 +115,17 @@
                 <button type="submit" class="login-btn">登入</button>
                 <p><a href="#">忘記密碼？</a></p>
                 <p>或</p>
-                <button type="button" class="google-login" id="google-login-btn">使用 Google 登入</button>
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+                <!-- Google 登入按鈕 -->
+                <div id="g_id_onload"
+                     data-client_id="1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>                    
             </form>
         </div>
     </div>
-   <script src="https://accounts.google.com/gsi/client" async defer></script>
-<div id="g_id_onload"
-     data-client_id="1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
 </div>
 <div class="g_id_signin" data-type="standard"></div>
 
