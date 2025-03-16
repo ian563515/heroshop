@@ -119,26 +119,13 @@
             </form>
         </div>
     </div>
-   <script>
-    function onSignIn(googleUser) {
-        // 獲取 id_token
-        var id_token = googleUser.getAuthResponse().id_token;
+   <script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+     data-client_id="1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse">
+</div>
+<div class="g_id_signin" data-type="standard"></div>
 
-        // 將 token 發送到 login-callback.html 頁面
-        window.location.href = 'login-callback.html?token=' + id_token;
-    }
-
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-            client_id: '1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com'
-        }).then(function() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.attachClickHandler(document.getElementById('google-login-btn'), {}, onSignIn, function(error) {
-                console.log(error);
-            });
-        });
-    });
-</script>
 
 </body>
 </html>
