@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 - 電商網站</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>電商網站</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">首頁</a></li>
+                <li><a href="products.html">商品</a></li>
+                <li><a href="cart.html">購物車</a></li>
+                <li><a href="checkout.html">結帳</a></li>
+                <li><a href="login.html">登入</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="banner">
+            <h2>特價促銷</h2>
+            <p>精選商品超值優惠，立即選購！</p>
+            <button onclick="location.href='products.html'">前往購物</button>
+        </section>
+        
+        <section class="product-list">
+            <h2>熱門商品</h2>
+            <div class="products">
+                <div class="product">
+                    <img src="computer.jpg" alt="商品1">
+                    <h3>MSI 微星 17.3吋i7獨顯RTX電競筆電</h3>
+                    <p>NT$ 37,900</p>
+                    <button>加入購物車</button>
+                </div>
+                <div class="product">
+                    <img src="iphone16.jpg" alt="商品2">
+                    <h3>iphone16</h3>
+                    <p>NT$ 29,900</p>
+                    <button>加入購物車</button>
+                </div>
+                <div class="product">
+                    <img src="headphones.jpg" alt="商品3">
+                    <h3>AirPods Pro</h3>
+                    <p>NT$ 7,190</p>
+                    <button>加入購物車</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 電商網站. All rights reserved.</p>
+    </footer>
+    <script src="cart.js"></script>
+</body>
+</html>

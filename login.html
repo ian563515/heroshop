@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 - 電商網站</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #b06ab3, #4568dc);
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        .user-icon {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .remember-me input {
+            margin-right: 5px;
+        }
+        .login-btn {
+            background: #4568dc;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-btn:hover {
+            background: #3b5ac2;
+        }
+        .google-login {
+            background: #db4437;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .google-login:hover {
+            background: #c1351d;
+        }
+        p a {
+            text-decoration: none;
+            color: #4568dc;
+            font-size: 14px;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <img src="user-icon.png" alt="用戶圖示" class="user-icon">
+            <h2>登入</h2>
+            <form action="#" method="post">
+                <div class="input-group">
+                    <label for="username">帳號</label>
+                    <input type="text" id="username" name="username" placeholder="請輸入帳號" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" placeholder="請輸入密碼" required>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">記住我</label>
+                </div>
+                <button type="submit" class="login-btn">登入</button>
+                <p><a href="#">忘記密碼？</a></p>
+                <p>或</p>
+                <button type="button" class="google-login" id="google-login-btn">使用 Google 登入</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function onSignIn(googleUser) {
+            // 獲取用戶的基本資料
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+
+            // 在這裡，你可以將 id_token 發送到你的後端來處理認證
+            // 這是登錄後，將 token 發送到伺服器的範例
+            fetch('/google-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token: id_token })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // 登入成功後，執行導向等操作
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        // 初始化 Google 登入
+        gapi.load('auth2', function() {
+            gapi.auth2.init({
+                client_id: '1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com'
+            }).then(function() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.attachClickHandler(document.getElementById('google-login-btn'), {}, onSignIn, function(error) {
+                    console.log(error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
