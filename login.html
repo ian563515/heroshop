@@ -119,42 +119,26 @@
             </form>
         </div>
     </div>
-    <script>
-        function onSignIn(googleUser) {
-            // 獲取用戶的基本資料
-            var profile = googleUser.getBasicProfile();
-            var id_token = googleUser.getAuthResponse().id_token;
+   <script>
+    function onSignIn(googleUser) {
+        // 獲取 id_token
+        var id_token = googleUser.getAuthResponse().id_token;
 
-            // 在這裡，你可以將 id_token 發送到你的後端來處理認證
-            // 這是登錄後，將 token 發送到伺服器的範例
-            fetch('/google-login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ token: id_token })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // 登入成功後，執行導向等操作
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
+        // 將 token 發送到 login-callback.html 頁面
+        window.location.href = 'login-callback.html?token=' + id_token;
+    }
 
-        // 初始化 Google 登入
-        gapi.load('auth2', function() {
-            gapi.auth2.init({
-                client_id: '1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com'
-            }).then(function() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.attachClickHandler(document.getElementById('google-login-btn'), {}, onSignIn, function(error) {
-                    console.log(error);
-                });
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: '1091100120384-p0vh7fa5o3e9adppgn2ogvcmmqi8g57u.apps.googleusercontent.com'
+        }).then(function() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.attachClickHandler(document.getElementById('google-login-btn'), {}, onSignIn, function(error) {
+                console.log(error);
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
