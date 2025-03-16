@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入回調 - 電商網站</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #b06ab3, #4568dc);
+            font-family: Arial, sans-serif;
+        }
+        .callback-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            color: #4568dc;
+        }
+    </style>
+</head>
+<body>
+    <div class="callback-container">
+        <h2>登入成功</h2>
+        <p>感謝您使用 Google 登入！我們正在處理您的資料，請稍等。</p>
+        <!-- 在這裡進行後端處理並顯示成功訊息 -->
+        <script>
+            // 獲取 URL 中的 token
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            
+            if (token) {
+                // 將 token 發送到伺服器進行處理
+                fetch('/google-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: token })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('成功:', data);
+                    // 登入成功後，可以重定向到其他頁面或顯示訊息
+                    window.location.href = '/home.html'; // 可以改成你想跳轉的頁面
+                })
+                .catch((error) => {
+                    console.error('錯誤:', error);
+                    // 處理錯誤，顯示錯誤訊息
+                });
+            } else {
+                // 沒有收到 token，顯示錯誤訊息
+                alert('無效的登入回應，請重新嘗試');
+            }
+        </script>
+    </div>
+</body>
+</html>
